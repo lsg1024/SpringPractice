@@ -1,6 +1,7 @@
 package com.kan.gemstone.service;
 
 import com.kan.gemstone.DTO.ArticleForm;
+import com.kan.gemstone.Repository.ArticleRepository;
 import com.kan.gemstone.entity.Article;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -19,7 +20,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ArticleServiceTest {
 
-    @Autowired ArticleService articleService;
+    @Autowired
+    private ArticleService articleService;
+    @Autowired
+    private ArticleRepository articleRepository;
 
     @Test
     @Order(5)
@@ -100,5 +104,55 @@ class ArticleServiceTest {
     }
 
 
+    @Test
+    void update_success() {
 
+        // 예상
+        Long id = 1L;
+        String title = "1번 수정";
+        String content = "내용1 수정";
+        ArticleForm dto = new ArticleForm(id, title, content);
+
+        // 실제
+        Article updatedArticle = articleService.update(id, dto);
+
+        // 비교
+        assertEquals(title, updatedArticle.getTitle());
+        assertEquals(content, updatedArticle.getContent());
+    }
+
+    @Test
+    void update_false() {
+
+        // 예상
+        Long id = 1L;
+        String title = "1번 수정";
+        String content = "내용1 수정";
+        ArticleForm dto = new ArticleForm(id, title, content);
+
+        // 실제
+        Article updatedArticle = articleService.update(id, dto);
+
+        // 비교
+        assertNotEquals("1번", updatedArticle.getTitle());
+        assertNotEquals("내용1", updatedArticle.getContent());
+    }
+
+    @Test
+    void delete() {
+
+        // 예상
+        Long id = 1L;
+        String title = "1번";
+        String content = "내용1";
+        Article article = new Article(id, title, content);
+        articleRepository.save(article);
+
+        // 실제
+        Article deletedArticle = articleService.delete(id);
+
+        // 비교
+        assertNotNull(deletedArticle); // 실제로 지워졌는지 확인
+        assertEquals(id, deletedArticle.getId()); // 삭제된 id 값이 예상과 일치하는지
+    }
 }
