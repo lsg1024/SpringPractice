@@ -1,6 +1,6 @@
 package com.kan.gemstone.DTO;
 
-import com.kan.gemstone.Entitiy.Article;
+import com.kan.gemstone.entity.Article;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 

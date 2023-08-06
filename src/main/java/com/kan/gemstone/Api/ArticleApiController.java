@@ -1,10 +1,9 @@
 package com.kan.gemstone.Api;
 
 import com.kan.gemstone.DTO.ArticleForm;
-import com.kan.gemstone.Entitiy.Article;
-import com.kan.gemstone.Repository.ArticleRepository;
+import com.kan.gemstone.entity.Article;
+import com.kan.gemstone.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,64 +14,59 @@ import java.util.List;
 @Slf4j
 public class ArticleApiController {
 
-    // DI? spring boot에서 당겨온다
-    private final ArticleRepository articleRepository;
+    // DI, 생성 객체를 가져와 연결!
+    private final ArticleService articleService;
 
-    public ArticleApiController(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
+    public ArticleApiController(ArticleService articleService) {
+        this.articleService = articleService;
     }
 
     // GET
     @GetMapping("/api/articles")
     public List<Article> index() {
-        return articleRepository.findAll();
+        return articleService.index();
     }
 
     @GetMapping("/api/articles/{id}")
-    public Article index(@PathVariable Long id) {
-        return articleRepository.findById(id).orElse(null);
+    public Article save(@PathVariable Long id){
+        return articleService.show(id);
     }
 
     // POST
     @PostMapping("/api/articles")
-    public Article create(@RequestBody ArticleForm dto){
-        Article article = dto.toEntity();
-        return articleRepository.save(article);
+    public ResponseEntity<Article> create(@RequestBody ArticleForm dto){
+        Article created = articleService.create(dto);
+        return (created != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(created):
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     // PATCH
     @PatchMapping("/api/articles/{id}")
     public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto) {
 
-        Article article = dto.toEntity();
-        log.info("id: {}, artoc;e: {}", id, article.toString());
+        Article updated = articleService.update(id, dto);
+        return (updated != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(updated) :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-        Article target = articleRepository.findById(id).orElse(null);
-
-        if (target == null || id != article.getId()) {
-            log.info("잘못된 요청! id: {}, article: {}", id, article.toString());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-
-        target.patch(article);
-        Article update = articleRepository.save(target);
-        return ResponseEntity.status(HttpStatus.OK).body(update);
     }
 
     // DELETE
     @DeleteMapping("/api/articles/{id}")
-    public ResponseEntity<Article> delete(@PathVariable Long id){
-        // 대상 찾기
-        Article target = articleRepository.findById(id).orElse(null);
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        Article deleted = articleService.delete(id);
+        return (deleted != null) ?
+                ResponseEntity.status(HttpStatus.NO_CONTENT).build():
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 
-        // 대상 삭제
-        if (target == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-
-        // 데이터 반환
-        articleRepository.delete(target);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    @PostMapping("/api/transaction-test")
+    public ResponseEntity<List<Article>> transactionTest(@RequestBody List<ArticleForm> dtos){
+        List<Article> createdList = articleService.createArticles(dtos);
+        return (createdList != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(createdList):
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
 

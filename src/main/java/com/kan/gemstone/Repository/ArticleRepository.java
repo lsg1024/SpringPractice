@@ -1,6 +1,6 @@
 package com.kan.gemstone.Repository;
 
-import com.kan.gemstone.Entitiy.Article;
+import com.kan.gemstone.entity.Article;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.ArrayList;

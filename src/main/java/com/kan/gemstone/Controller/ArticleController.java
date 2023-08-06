@@ -1,7 +1,7 @@
 package com.kan.gemstone.Controller;
 
 import com.kan.gemstone.DTO.ArticleForm;
-import com.kan.gemstone.Entitiy.Article;
+import com.kan.gemstone.entity.Article;
 import com.kan.gemstone.Repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

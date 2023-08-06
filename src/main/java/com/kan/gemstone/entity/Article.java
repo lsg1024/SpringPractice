@@ -1,4 +1,4 @@
-package com.kan.gemstone.Entitiy;
+package com.kan.gemstone.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
