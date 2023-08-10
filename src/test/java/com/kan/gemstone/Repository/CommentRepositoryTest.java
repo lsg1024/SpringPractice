@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,15 +66,55 @@ class CommentRepositoryTest {
         }
 
         // Kim의 모든 댓글 조회
-        {}
+        {
+            String nickname = "Kim";
+
+            // 실제 수행
+            List<Comment> comments = commentRepository.findByNickname(nickname);
+
+            // 예상하기
+            Comment a = new Comment(2L, new Article(4L, "4번", "내용4"), "Kim", "댓글2");
+            Comment b = new Comment(5L, new Article(5L, "5번", "내용5"), "Kim", "댓글5");
+            Comment c = new Comment(8L, new Article(6L, "6번", "내용6"), "Kim", "댓글8");
+            List<Comment> expected = Arrays.asList(a, b, c);
+
+            // 검증
+            assertEquals(expected.toString(), comments.toString());
+
+        }
 
         // null의 모든 댓글 조회
-        {}
+        {
+            String nickname = null;
+
+            // 실제 수행
+            List<Comment> comments = commentRepository.findByNickname(nickname);
+
+            // 예상하기
+            List<Comment> expected = commentRepository.findAll();
+
+            // 검증
+            assertNotEquals(expected.toString(), comments.toString());
+
+        }
 
         // **의 모든 댓글 조회
-        {}
+        {
+            String nickname = "";
+
+            // 실제 수행
+            List<Comment> comments = commentRepository.findByNickname(nickname);
+
+            // 예상하기
+            List<Comment> expected = commentRepository.findAll();
+
+            // 검증
+            assertEquals(expected.toString(), comments.toString());
+        }
 
         // "i"의 모든 댓글 조회
-        {}
+        {
+
+        }
     }
 }
