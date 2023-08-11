@@ -1,4 +1,4 @@
-package com.kan.gemstone.Api;
+package com.kan.gemstone.api;
 
 import com.kan.gemstone.DTO.ArticleForm;
 import com.kan.gemstone.entity.Article;

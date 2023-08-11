@@ -1,4 +1,4 @@
-package com.kan.gemstone.Repository;
+package com.kan.gemstone.repository;
 
 import com.kan.gemstone.entity.Article;
 import org.springframework.data.repository.CrudRepository;

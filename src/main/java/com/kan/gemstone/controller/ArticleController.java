@@ -1,8 +1,10 @@
-package com.kan.gemstone.Controller;
+package com.kan.gemstone.controller;
 
 import com.kan.gemstone.DTO.ArticleForm;
+import com.kan.gemstone.DTO.CommentDTO;
 import com.kan.gemstone.entity.Article;
-import com.kan.gemstone.Repository.ArticleRepository;
+import com.kan.gemstone.repository.ArticleRepository;
+import com.kan.gemstone.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +18,11 @@ import java.util.List;
 @Slf4j // 로깅을 위한 롬복 어노테이션
 public class ArticleController {
     private final ArticleRepository articleRepository;
-    public ArticleController(ArticleRepository articleRepository) {
+    private final CommentService commentService;
+    public ArticleController(ArticleRepository articleRepository, CommentService commentService) {
         this.articleRepository = articleRepository;
+        this.commentService = commentService;
+
     }
 
     @GetMapping("/articles/new")
@@ -45,9 +50,12 @@ public class ArticleController {
 
         // id로 데이터 가져오기 -> 아이디 값이 없다면 null 값을 반환한다 그럼 option<> 형태는 무엇인지 찾기
         Article articleEntity = articleRepository.findById(id).orElse(null);
+        List<CommentDTO> commentDTOs = commentService.comments(id);
+
 
         // 가져온 데이터 모델 등록
         model.addAttribute("article", articleEntity);
+        model.addAttribute("commentDTOs", commentDTOs);
 
         // 보여줄 페이지 설정
         return "articles/show";

@@ -1,4 +1,4 @@
-package com.kan.gemstone.Controller;
+package com.kan.gemstone.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

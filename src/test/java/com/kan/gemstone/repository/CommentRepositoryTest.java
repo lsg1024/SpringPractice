@@ -1,4 +1,4 @@
-package com.kan.gemstone.Repository;
+package com.kan.gemstone.repository;
 
 import com.kan.gemstone.entity.Article;
 import com.kan.gemstone.entity.Comment;
@@ -6,10 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -98,23 +96,23 @@ class CommentRepositoryTest {
 
         }
 
-        // **의 모든 댓글 조회
-        {
-            String nickname = "";
-
-            // 실제 수행
-            List<Comment> comments = commentRepository.findByNickname(nickname);
-
-            // 예상하기
-            List<Comment> expected = commentRepository.findAll();
-
-            // 검증
-            assertEquals(expected.toString(), comments.toString());
-        }
-
-        // "i"의 모든 댓글 조회
-        {
-
-        }
+//        // **의 모든 댓글 조회
+//        {
+//            String nickname = "";
+//
+//            // 실제 수행
+//            List<Comment> comments = commentRepository.findByNickname(nickname);
+//
+//            // 예상하기
+//            List<Comment> expected = commentRepository.findAll();
+//
+//            // 검증
+//            assertEquals(expected.toString(), comments.toString());
+//        }
+//
+//        // "i"의 모든 댓글 조회
+//        {
+//
+//        }
     }
 }

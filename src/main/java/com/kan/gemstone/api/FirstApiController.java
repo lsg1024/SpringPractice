@@ -1,4 +1,4 @@
-package com.kan.gemstone.Api;
+package com.kan.gemstone.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
