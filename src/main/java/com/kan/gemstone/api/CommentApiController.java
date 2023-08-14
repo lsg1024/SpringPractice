@@ -1,6 +1,7 @@
 package com.kan.gemstone.api;
 
 import com.kan.gemstone.DTO.CommentDTO;
+import com.kan.gemstone.annotation.RunningTime;
 import com.kan.gemstone.entity.Comment;
 import com.kan.gemstone.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class CommentApiController {
     }
 
     // 댓글 삭제
+    @RunningTime
     @DeleteMapping("/api/comments/{id}")
     public ResponseEntity<CommentDTO> delete(@PathVariable Long id) {
 

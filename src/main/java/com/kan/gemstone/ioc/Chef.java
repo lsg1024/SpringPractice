@@ -1,5 +1,8 @@
 package com.kan.gemstone.ioc;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Chef {
 
     // 식재료 공장 위치

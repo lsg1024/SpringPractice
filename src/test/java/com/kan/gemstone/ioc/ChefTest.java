@@ -1,16 +1,26 @@
 package com.kan.gemstone.ioc;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class ChefTest {
+
+    @Autowired
+    IngredientFactory ingredientFactory;
+
+    @Autowired
+    Chef chef;
+
     @Test
     void 돈가스_요리하기() {
 
         // ready
-        IngredientFactory ingredientFactory = new IngredientFactory();
-        Chef chef = new Chef(ingredientFactory);
+//        IngredientFactory ingredientFactory = new IngredientFactory();
+//        Chef chef = new Chef(ingredientFactory);
         String menu = "돈가스";
 
         // 수행
@@ -28,8 +38,8 @@ class ChefTest {
     void 스테이크_요리하기() {
 
         // ready
-        IngredientFactory ingredientFactory = new IngredientFactory();
-        Chef chef = new Chef(ingredientFactory);
+//        IngredientFactory ingredientFactory = new IngredientFactory();
+//        Chef chef = new Chef(ingredientFactory);
         String menu = "스테이크";
 
         // 수행
@@ -46,8 +56,8 @@ class ChefTest {
     @Test
     void 크리스피_치킨() {
         // ready
-        IngredientFactory ingredientFactory = new IngredientFactory();
-        Chef chef = new Chef(ingredientFactory);
+//        IngredientFactory ingredientFactory = new IngredientFactory();
+//        Chef chef = new Chef(ingredientFactory);
         String menu = "치킨";
 
         // 수행

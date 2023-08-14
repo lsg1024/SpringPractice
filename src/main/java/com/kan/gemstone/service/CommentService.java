@@ -54,6 +54,7 @@ public class CommentService {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패! 대상 게시글이 없습니다")); //예외 처리
 
+
         // 댓글 엔티티 생성
         Comment comment = Comment.createComment(commentDTO, article);
 
