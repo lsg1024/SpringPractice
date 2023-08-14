@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class DebuggingAspect {
 
     // * public 과 리턴 타입을 지정
-    @Pointcut("execution(* com.kan.gemstone.service.CommentService.*(..))") // 대상 메소드 선택: CommentService #create()
+    @Pointcut("execution(* com.kan.gemstone.api.*.*(..))") // 대상 메소드 선택: CommentService #create()
     private void cut() {}
 
     @Before("cut()") // 실행 시점 지정 : cut()의 대상이 수행되기 이전
